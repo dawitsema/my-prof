@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dawit Sema | Backend & Automation Portfolio</title>
+    <link rel="icon" type="image/png" href="my-logo.png" />
+    <link rel="apple-touch-icon" href="my-logo.png" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg-primary: #050505;
+        --bg-secondary: #121212;
+        --bg-card: #161616;
+        --text-primary: #f3f4f6;
+        --text-muted: #9ca3af;
+        --accent: #f97316;
+        --accent-muted: rgba(249, 115, 22, 0.15);
+        --border: rgba(255, 255, 255, 0.08);
+        --nav-height: 4.5rem;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: inherit;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        background: rgba(5, 5, 5, 0.75);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      }
+
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        height: var(--nav-height);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-primary);
+      }
+
+      .brand img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 0.35rem;
+        list-style: none;
+        margin: 0;
+        padding: 0.35rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 15, 15, 0.7);
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.35);
+      }
+
+      .nav-link a {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        position: relative;
+        padding: 0.45rem 1.1rem;
+        border-radius: 999px;
+        transition: color 0.25s ease, background 0.25s ease;
+      }
+
+      .nav-link a::after {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        transition: border-color 0.3s ease;
+      }
+
+      .nav-link a:focus-visible,
+      .nav-link a:hover {
+        color: var(--text-primary);
+        background: rgba(249, 115, 22, 0.15);
+      }
+
+      .nav-link a.active {
+        color: var(--text-primary);
+        background: rgba(249, 115, 22, 0.25);
+        box-shadow: 0 6px 16px rgba(249, 115, 22, 0.35);
+      }
+
+      .nav-link a.active::after {
+        border-color: rgba(249, 115, 22, 0.7);
+      }
+
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.7rem;
+        cursor: pointer;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+      }
+
+      section {
+        scroll-margin-top: calc(var(--nav-height) + 1rem);
+      }
+
+      .tagline {
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.85rem;
+      }
+
+      .hero {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        margin: 0.5rem 0 1rem;
+      }
+
+      .hero p {
+        color: var(--text-muted);
+        max-width: 55ch;
+        margin-bottom: 2rem;
+      }
+
+      .cta-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.85rem 1.6rem;
+        border-radius: 0.75rem;
+        border: 1px solid transparent;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease,
+          background-position 0.4s ease, border-color 0.3s ease;
+        text-align: center;
+        background-size: 180%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+
+      .btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .btn-primary {
+        background-image: linear-gradient(
+          120deg,
+          rgba(249, 115, 22, 0.95),
+          rgba(255, 161, 94, 0.9)
+        );
+        color: #0f0f0f;
+        box-shadow: 0 10px 25px rgba(249, 115, 22, 0.25);
+      }
+
+      .btn-secondary {
+        border-color: rgba(255, 255, 255, 0.15);
+        color: var(--text-primary);
+        background-image: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        background-position: right center;
+        box-shadow: 0 12px 26px rgba(249, 115, 22, 0.35);
+      }
+
+      .btn-secondary:hover {
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+        border-color: rgba(249, 115, 22, 0.4);
+      }
+
+      .about {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 1.25rem;
+        padding: 1.5rem;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .card p {
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tag {
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        background: var(--accent-muted);
+        color: var(--accent);
+        font-size: 0.85rem;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+
+      .filter-btn {
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-muted);
+        padding: 0.6rem 1.5rem;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.3s ease, color 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      .filter-btn.active {
+        background: var(--accent);
+        color: #0f172a;
+        border-color: transparent;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        position: relative;
+        padding-bottom: 3.5rem;
+      }
+
+      .tech-stack {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+
+      .project-link {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .contact {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .contact-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 1.25rem;
+        padding: 2.25rem;
+        border-radius: 1.75rem;
+        border: 1px solid var(--border);
+        background: radial-gradient(
+            circle at top right,
+            rgba(249, 115, 22, 0.25),
+            transparent 50%
+          ),
+          linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.95));
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-form::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 20% 20%,
+          rgba(249, 115, 22, 0.35),
+          transparent 45%
+        );
+        filter: blur(60px);
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      .contact-form > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .contact-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 1rem;
+        border-radius: 999px;
+        background: rgba(249, 115, 22, 0.15);
+        color: var(--accent);
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        width: fit-content;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .contact-form label {
+        font-weight: 600;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 0.95rem 1rem;
+        border-radius: 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 15, 15, 0.75);
+        color: var(--text-primary);
+        font: inherit;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .contact-form input:focus-visible,
+      .contact-form textarea:focus-visible {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25);
+      }
+
+      .contact-form textarea {
+        min-height: 170px;
+        resize: vertical;
+      }
+
+      .contact-info {
+        border-radius: 1.75rem;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        padding: 2rem;
+        display: grid;
+        gap: 1.25rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-info::after {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(
+          circle,
+          rgba(249, 115, 22, 0.18),
+          transparent 60%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .contact-info > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .contact-lede {
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      .contact-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .contact-badges .badge {
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .contact-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .contact-list li {
+        display: flex;
+        gap: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .contact-mail {
+        width: fit-content;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem 1.5rem;
+        background: var(--bg-secondary);
+      }
+
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .social {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.9rem;
+        border-radius: 0.85rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text-muted);
+        font-weight: 500;
+        transition: border-color 0.2s ease, color 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .social-link svg {
+        width: 18px;
+        height: 18px;
+        fill: var(--accent);
+      }
+
+      .social-link:hover {
+        border-color: rgba(249, 115, 22, 0.8);
+        color: var(--text-primary);
+        background: rgba(249, 115, 22, 0.08);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .cursor-star {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 2000;
+        opacity: 0;
+        filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.6));
+      }
+
+      .cursor-star::before,
+      .cursor-star::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at center,
+          rgba(249, 115, 22, 0.95) 0%,
+          rgba(249, 115, 22, 0.4) 45%,
+          transparent 70%
+        );
+        animation: starPulse 1.5s ease-in-out infinite;
+      }
+
+      .cursor-star::after {
+        animation-delay: 0.5s;
+        mix-blend-mode: screen;
+      }
+
+      @keyframes starPulse {
+        0% {
+          transform: scale(0.6) rotate(0deg);
+          opacity: 0.4;
+        }
+        50% {
+          transform: scale(1) rotate(30deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.6) rotate(0deg);
+          opacity: 0.4;
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          inset: var(--nav-height) 0 auto 0;
+          flex-direction: column;
+          background: rgba(5, 5, 5, 0.95);
+          padding: 1.5rem;
+          max-height: 0;
+          overflow: hidden;
+          border-bottom: 1px solid var(--border);
+          transition: max-height 0.3s ease;
+          border-radius: 0;
+          gap: 0.75rem;
+        }
+
+        .nav-links.open {
+          max-height: 320px;
+        }
+
+        .cta-group {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        main {
+          padding: 3.5rem 1.25rem;
+        }
+
+        .contact-wrapper {
+          gap: 1.5rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding: 3rem 1rem;
+        }
+
+        .section-title {
+          font-size: 1.75rem;
+        }
+
+        .contact-form,
+        .contact-info {
+          padding: 1.5rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="sr-only">Skip to content</a>
+    <div class="cursor-star" aria-hidden="true"></div>
+
+    <header>
+      <nav class="nav" aria-label="Primary">
+        <div class="brand" aria-label="Developer name">
+          <img src="my-logo.png" alt="Dawit Sema logo" />
+          <span>Dawit Sema</span>
+        </div>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+        <ul class="nav-links">
+          <li class="nav-link"><a href="#home">Home</a></li>
+          <li class="nav-link"><a href="#about">About</a></li>
+          <li class="nav-link"><a href="#projects">Projects</a></li>
+          <li class="nav-link"><a href="#skills">Skills</a></li>
+          <li class="nav-link"><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="home" class="hero reveal">
+        <p class="tagline">
+          Backend Developer | AI Agent Developer | Automation Engineer
+        </p>
+        <h1>
+          Building resilient backend systems and production-ready automation.
+        </h1>
+        <p>
+          I design AI-driven workflows, integrate APIs, and deploy scalable
+          automation on the n8n platform. From high-volume lead engines to
+          content automation, I bridge backend robustness with intelligent
+          orchestration.
+        </p>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#projects">View Portfolio</a>
+          <a class="btn btn-secondary" href="#" aria-label="Download resume"
+            >Download Resume</a
+          >
+        </div>
+      </section>
+
+      <section id="about" class="about reveal">
+        <h2 class="section-title">About</h2>
+        <p>
+          I’m a full-stack backend developer specialized in Python and Node.js
+          with a focus on building production-ready automation systems. I
+          architect workflow automation on n8n and Make.com, and develop custom
+          AI agents that orchestrate multi-service pipelines. My background
+          includes deploying reliable systems across SaaS, media, and revenue
+          teams.
+        </p>
+      </section>
+
+      <section id="skills" class="reveal">
+        <h2 class="section-title">Skills & Platforms</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Technical Stack</h3>
+            <p>
+              Backend-first approach with modern API design and integration.
+            </p>
+            <div class="skill-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">GraphQL</span>
+              <span class="tag">API Integration</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Automation Expertise</h3>
+            <p>
+              AI agents and workflow automation delivered through no-code + code
+              hybrids.
+            </p>
+            <div class="skill-tags">
+              <span class="tag">n8n</span>
+              <span class="tag">Make.com</span>
+              <span class="tag">Workflow Automation</span>
+              <span class="tag">AI Agents</span>
+              <span class="tag">Process Design</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Tools & APIs</h3>
+            <p>
+              Production tooling for repeatable deployments and observability.
+            </p>
+            <div class="skill-tags">
+              <span class="tag">Docker</span>
+              <span class="tag">Git</span>
+              <span class="tag">SerpAPI</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">ChatGPT</span>
+              <span class="tag">Anthropic</span>
+              <span class="tag">Leonardo.ai</span>
+              <span class="tag">Apollo</span>
+              <span class="tag">Airtable</span>
+              <span class="tag">Google Sheets</span>
+              <span class="tag">Google Apps Script</span>
+              <span class="tag">Hygen</span>
+              <span class="tag">Leads Collection</span>
+              <span class="tag">Google Workspace</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="reveal">
+        <div class="section-header">
+          <h2 class="section-title">Projects</h2>
+          <p>
+            Featured builds showcasing AI agents, automation, and backend
+            integrations.
+          </p>
+        </div>
+        <div class="filters" role="tablist" aria-label="Project filters">
+          <button
+            class="filter-btn active"
+            data-filter="all"
+            role="tab"
+            aria-selected="true"
+          >
+            All
+          </button>
+          <button class="filter-btn" data-filter="ai" role="tab">
+            AI Agents
+          </button>
+          <button class="filter-btn" data-filter="automation" role="tab">
+            Automation
+          </button>
+          <button class="filter-btn" data-filter="integrations" role="tab">
+            Integrations
+          </button>
+        </div>
+        <div class="projects-grid" role="list">
+          <article
+            class="card project-card"
+            data-category="ai automation"
+            role="listitem"
+          >
+            <h3>AI-Powered Lead Generation System</h3>
+            <p>
+              Multi-agent orchestration that scrapes, enriches, and routes leads
+              through Apollo and custom GraphQL services. Deployed on n8n with
+              automated follow-ups.
+            </p>
+            <div class="tech-stack">
+              Tech: Python, Node.js, n8n, Make.com, OpenAI, Apollo API
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View AI-Powered Lead Generation System"
+              >Explore</a
+            >
+          </article>
+          <article
+            class="card project-card"
+            data-category="automation integrations"
+            role="listitem"
+          >
+            <h3>WordPress Content Automation Pipeline</h3>
+            <p>
+              Automated content ingestion, enrichment, and publishing pipeline
+              integrating WordPress REST, SerpAPI research, and Leonardo.ai
+              asset creation.
+            </p>
+            <div class="tech-stack">
+              Tech: Node.js, WordPress REST, Make.com, SerpAPI, Leonardo.ai
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View WordPress Content Automation Pipeline"
+              >Explore</a
+            >
+          </article>
+          <article
+            class="card project-card"
+            data-category="automation"
+            role="listitem"
+          >
+            <h3>Multi-API Data Enrichment Workflow</h3>
+            <p>
+              Composable n8n workflow that unifies CRM, marketing, and product
+              signals, delivering enriched profiles with SLA-backed reliability.
+            </p>
+            <div class="tech-stack">
+              Tech: n8n, Make.com, Python, GraphQL, Google Workspace
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View Multi-API Data Enrichment Workflow"
+              >Explore</a
+            >
+          </article>
+          <article class="card project-card" data-category="ai" role="listitem">
+            <h3>AI Agent Content Studio</h3>
+            <p>
+              Custom AI agent framework that drafts, reviews, and ships blog
+              updates with human-in-the-loop approvals and observability hooks.
+            </p>
+            <div class="tech-stack">
+              Tech: Python, OpenAI, ChatGPT, Anthropic, Docker, GitHub Actions
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View AI Agent Content Studio"
+              >Explore</a
+            >
+          </article>
+          <article
+            class="card project-card"
+            data-category="integrations automation"
+            role="listitem"
+          >
+            <h3>Workflow Control Tower</h3>
+            <p>
+              Operational dashboard unifying n8n executions, alerts, and KPIs
+              with WebSocket streaming and actionable runbooks.
+            </p>
+            <div class="tech-stack">
+              Tech: Node.js, GraphQL, Docker, Airtable, Google Workspace
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View Workflow Control Tower"
+              >Explore</a
+            >
+          </article>
+          <article
+            class="card project-card"
+            data-category="automation ai"
+            role="listitem"
+          >
+            <h3>Blog Automation Pods</h3>
+            <p>
+              Clustered automation pods that ideate, draft, and distribute SEO
+              blog content across WordPress and newsletters.
+            </p>
+            <div class="tech-stack">
+              Tech: n8n, Make.com, Python, OpenAI, WordPress
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View Blog Automation Pods"
+              >Explore</a
+            >
+          </article>
+          <article
+            class="card project-card"
+            data-category="automation ai integrations"
+            role="listitem"
+          >
+            <h3>B2B Leads Collection Engine</h3>
+            <p>
+              Multi-channel lead harvesting system combining Apollo, ChatGPT,
+              and Make.com for high-signal B2B prospecting with automated
+              enrichment and routing.
+            </p>
+            <div class="tech-stack">
+              Tech: Make.com, n8n, Apollo, ChatGPT, Airtable, Google Sheets
+            </div>
+            <a
+              class="project-link"
+              href="#"
+              aria-label="View B2B Leads Collection Engine"
+              >Explore</a
+            >
+          </article>
+        </div>
+      </section>
+
+      <section class="contact reveal" id="contact">
+        <div class="section-header">
+          <h2 class="section-title">Contact</h2>
+          <p>
+            Let’s discuss backend scalability, AI agent design, or workflow
+            automation. Reach out via the form or email me directly.
+          </p>
+        </div>
+        <div class="contact-wrapper">
+          <form
+            class="contact-form"
+            id="contact-form"
+            aria-label="Contact form"
+          >
+            <span class="contact-pill">Now booking automation builds</span>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@email.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="project-details">Project Details</label>
+              <textarea
+                id="project-details"
+                name="message"
+                placeholder="Tell me about your automation goals"
+                required
+              ></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+          <div class="contact-info">
+            <p class="contact-lede">
+              Available for workflow audits, AI agent roadmaps, and end-to-end
+              automation launches.
+            </p>
+            <div class="contact-badges">
+              <span class="badge">Workflow Audits</span>
+              <span class="badge">AI Agent Pods</span>
+              <span class="badge">Make.com & n8n</span>
+              <span class="badge">Lead Systems</span>
+            </div>
+            <ul class="contact-list">
+              <li><strong>Response:</strong> under 24 hours</li>
+              <li><strong>Time zones:</strong> GMT+3 / Remote</li>
+              <li><strong>Domains:</strong> SaaS, Media, RevOps</li>
+              <li>
+                <strong>Instagram:</strong>
+                <a
+                  href="https://instagram.com/semajuniorll"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >@semajuniorll</a
+                >
+              </li>
+              <li>
+                <strong>WhatsApp:</strong>
+                <a
+                  href="https://wa.me/2519562188889"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >+251 956 218 8889</a
+                >
+              </li>
+            </ul>
+            <a
+              href="mailto:dawitsema520@gmail.com"
+              data-email-link
+              class="btn btn-secondary contact-mail"
+              aria-label="Email Dawit"
+              >dawitsema520@gmail.com</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>&copy; <span id="year"></span> Dawit Sema</span>
+        <div class="social" aria-label="Social media links">
+          <a
+            class="social-link"
+            href="https://github.com/dawitsema"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.22c0 4.49 2.87 8.29 6.84 9.64.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.13-4.55-5 0-1.11.39-2.01 1.03-2.72-.1-.26-.45-1.3.1-2.7 0 0 .85-.28 2.8 1.04a9.39 9.39 0 0 1 5.1 0c1.94-1.32 2.8-1.04 2.8-1.04.55 1.4.2 2.44.1 2.7.64.71 1.03 1.61 1.03 2.72 0 3.88-2.34 4.73-4.57 4.99.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .26.18.58.69.48A10.05 10.05 0 0 0 22 12.22C22 6.58 17.52 2 12 2Z"
+              />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a
+            class="social-link"
+            href="https://linkedin.com/in/dawit-sema"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn profile"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20.45 20.45h-3.55v-5.56c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.66H9.35V9h3.4v1.56h.05c.47-.89 1.62-1.85 3.33-1.85 3.56 0 4.22 2.35 4.22 5.4v6.34ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.13 20.45H3.55V9h3.58v11.45Z"
+              />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a
+            class="social-link"
+            href="https://instagram.com/semajuniorll"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram profile"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 7.2A4.8 4.8 0 1 0 16.8 12 4.8 4.8 0 0 0 12 7.2Zm0 7.9A3.1 3.1 0 1 1 15.1 12 3.1 3.1 0 0 1 12 15.1Zm6.15-7.95a1.12 1.12 0 1 1 1.12-1.12 1.12 1.12 0 0 1-1.12 1.12Zm3.2-1.14a4.45 4.45 0 0 0-1.2-3.16A4.45 4.45 0 0 0 17.99 1.6C16.4 1.52 7.6 1.52 6.01 1.6a4.45 4.45 0 0 0-3.16 1.25 4.45 4.45 0 0 0-1.2 3.16C1.52 6.4 1.52 15.2 1.6 16.79a4.45 4.45 0 0 0 1.25 3.16 4.45 4.45 0 0 0 3.16 1.2c1.59.08 10.39.08 11.98 0a4.45 4.45 0 0 0 3.16-1.25 4.45 4.45 0 0 0 1.2-3.16c.08-1.59.08-10.39 0-11.98ZM21.4 18a2.54 2.54 0 0 1-.66 1.8 2.54 2.54 0 0 1-1.8.66c-1.41.06-9.95.06-11.36 0a2.54 2.54 0 0 1-1.8-.66 2.54 2.54 0 0 1-.66-1.8c-.06-1.41-.06-9.95 0-11.36a2.54 2.54 0 0 1 .66-1.8 2.54 2.54 0 0 1 1.8-.66c1.41-.06 9.95-.06 11.36 0a2.54 2.54 0 0 1 1.8.66 2.54 2.54 0 0 1 .66 1.8c.06 1.41.06 9.95 0 11.36Z"
+              />
+            </svg>
+            <span>Instagram</span>
+          </a>
+          <a
+            class="social-link"
+            href="https://wa.me/2519562188889"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp contact"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12.04 2A9.95 9.95 0 0 0 2 12.04a9.87 9.87 0 0 0 1.38 5.1L2 22l4.98-1.31a9.96 9.96 0 0 0 5.06 1.36 10.05 10.05 0 0 0 10-10.01A10.05 10.05 0 0 0 12.04 2Zm5.91 14.51c-.25.7-1.23 1.27-2 1.44-.53.11-1.22.2-3.56-.76-2.99-1.24-4.91-4.28-5.07-4.48-.15-.2-1.21-1.61-1.21-3.07s.77-2.18 1.04-2.48.61-.36.82-.36h.58c.18 0 .43-.07.68.52.25.6.85 2.07.92 2.22.07.15.11.32.02.51-.09.2-.14.31-.27.48-.13.17-.28.38-.4.51-.13.13-.26.28-.11.54.15.26.67 1.09 1.43 1.77 1 0.89 1.85 1.17 2.11 1.31.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.23.61-.14.25.09 1.58.75 1.85.89.27.13.45.2.52.31.07.11.07.67-.18 1.37Z"
+              />
+            </svg>
+            <span>WhatsApp</span>
+          </a>
+        </div>
+        <span>Backend | Automation | AI Agents</span>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".nav-links");
+        navToggle.addEventListener("click", () => {
+          const isOpen = navLinks.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", isOpen.toString());
+        });
+
+        navLinks.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+          });
+        });
+
+        const navItems = document.querySelectorAll(".nav-link a");
+        const sections = document.querySelectorAll("main section[id]");
+
+        const setActiveLink = (id) => {
+          navItems.forEach((link) => {
+            const targetId = link.getAttribute("href");
+            link.classList.toggle("active", targetId === `#${id}`);
+          });
+        };
+
+        navItems.forEach((link) => {
+          link.addEventListener("click", () => {
+            const targetId = link.getAttribute("href").replace("#", "");
+            setActiveLink(targetId);
+          });
+        });
+
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setActiveLink(entry.target.id);
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+
+        sections.forEach((section) => sectionObserver.observe(section));
+
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const projectCards = document.querySelectorAll(".project-card");
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            filterButtons.forEach((btn) => {
+              btn.classList.remove("active");
+              btn.setAttribute("aria-selected", "false");
+            });
+            button.classList.add("active");
+            button.setAttribute("aria-selected", "true");
+
+            const filter = button.dataset.filter;
+            projectCards.forEach((card) => {
+              const categories = card.dataset.category.split(" ");
+              const matches = filter === "all" || categories.includes(filter);
+              card.style.display = matches ? "block" : "none";
+            });
+          });
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        document
+          .querySelectorAll(".reveal")
+          .forEach((section) => observer.observe(section));
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const openEmail = ({
+          to = "dawitsema520@gmail.com",
+          subject = "Automation Project Inquiry",
+          body = "",
+        } = {}) => {
+          const params = new URLSearchParams();
+          if (subject) params.append("subject", subject);
+          if (body) params.append("body", body);
+          const mailto = `mailto:${to}?${params.toString()}`;
+          window.location.href = mailto;
+        };
+
+        document.querySelectorAll("[data-email-link]").forEach((node) => {
+          node.addEventListener("click", (event) => {
+            event.preventDefault();
+            openEmail();
+          });
+        });
+
+        const form = document.getElementById("contact-form");
+        if (form) {
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const payload = {
+              name: document.getElementById("name").value,
+              email: document.getElementById("email").value,
+              message: document.getElementById("project-details").value,
+            };
+
+            try {
+              const response = await fetch(
+                "https://script.google.com/macros/s/AKfycbx_S3IB31v6SukUsbS7pIpu4VNKGLSctrxzGLU9k1Dy_D6DgcQpBJyM-YzNPahZQzHDcA/exec",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(payload),
+                }
+              );
+
+              const result = await response.json();
+              console.log(result);
+
+              if (result.status === "success") {
+                alert("Your message has been sent successfully!");
+                form.reset();
+              } else {
+                alert("Something went wrong. Please try again.");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Network error — please try again.");
+            }
+          });
+        }
+
+        const enableStar = window.matchMedia("(pointer: fine)").matches;
+        const allowMotion = !window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+        const star = document.querySelector(".cursor-star");
+        if (enableStar && allowMotion && star) {
+          let current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+          let target = { ...current };
+          let rafId;
+
+          const render = () => {
+            current.x += (target.x - current.x) * 0.15;
+            current.y += (target.y - current.y) * 0.15;
+            star.style.transform = `translate(${current.x}px, ${current.y}px)`;
+            rafId = requestAnimationFrame(render);
+          };
+          render();
+
+          window.addEventListener("pointermove", (event) => {
+            target = { x: event.clientX, y: event.clientY };
+            star.style.opacity = 1;
+          });
+
+          window.addEventListener("pointerleave", () => {
+            star.style.opacity = 0;
+          });
+
+          window.addEventListener("blur", () => {
+            star.style.opacity = 0;
+          });
+
+          window.addEventListener("focus", () => {
+            star.style.opacity = 1;
+          });
+
+          window.addEventListener("beforeunload", () => {
+            cancelAnimationFrame(rafId);
+          });
+        } else if (star) {
+          star.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
